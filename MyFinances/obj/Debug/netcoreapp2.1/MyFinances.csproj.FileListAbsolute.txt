@@ -30,3 +30,5 @@ C:\Projetos\MyFinances\MyFinances\obj\Debug\netcoreapp2.1\MyFinances.Views.pdb
 C:\Projetos\MyFinances\MyFinances\obj\Debug\netcoreapp2.1\MyFinances.dll
 C:\Projetos\MyFinances\MyFinances\obj\Debug\netcoreapp2.1\MyFinances.pdb
 C:\Projetos\MyFinances\MyFinances\obj\Debug\netcoreapp2.1\MyFinances.csproj.CopyComplete
+C:\Projetos\MyFinances\MyFinances\obj\Debug\netcoreapp2.1\Razor\Views\Expense\Index.g.cshtml.cs
+C:\Projetos\MyFinances\MyFinances\obj\Debug\netcoreapp2.1\Razor\Views\Expense\_expenseForm.g.cshtml.cs

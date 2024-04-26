@@ -13,6 +13,7 @@ using MyFinances.Models;
 using Microsoft.SqlServer;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.EntityFrameworkCore;
+using MyFinances.DAL;
 
 namespace MyFinances
 {
@@ -37,6 +38,8 @@ namespace MyFinances
 
             services.AddDbContext<AppDbContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<IFinancesDAL, FinancesDal>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
