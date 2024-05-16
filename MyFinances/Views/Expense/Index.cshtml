@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<MyFinances.Models.ExpenseReport>
 @{
-    ViewData["Title"] = "Gerenciador de Finanças Pessoal";
+    ViewData["Title"] = "MyFinances 1.0";
 }
 <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
@@ -12,17 +12,17 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" rel="stylesheet">
 
-<h2>Minhas finanças</h2>
+<h2>Expenses</h2>
 <br />
 <div>
     <div style="float:left">
-        <button class="btn btn-primary" onclick="AddEditExpense(0)">Adicionar Despesa</button>
-        <button class="btn btn-success" onclick="ReportExpense()">Relatório de despesas</button>
+        <button class="btn btn-primary" onclick="AddEditExpense(0)">Add expense</button>
+        <button class="btn btn-success" onclick="ReportExpense()">Expense report</button>
     </div>
     <div style="float:right; width:40%">
         <form asp-controller="Expense" asp-action="Index" class="form-group">
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="criterion" placeholder="Procurar" />
+                <input class="form-control" type="text" name="criterion" placeholder="Search" />
             </div>
             <button type="submit" class="btn btn-default">Filtrar</button>
         </form>
@@ -51,8 +51,8 @@
             <td>@Html.DisplayFor(modelItem => item.ExpenseDate)</td>
             <td>@Html.DisplayFor(modelItem => item.Category)</td>
             <td>
-                <button class="btn btn-default" onclick="AddEditExpense(@item.ItemId)">Editar</button>
-                <button class="btn btn-danger" onclick="DeleteExpense(@item.ItemId)">Deletar</button>
+                <button class="btn btn-default" onclick="AddEditExpense(@item.ItemId)">Edit</button>
+                <button class="btn btn-danger" onclick="DeleteExpense(@item.ItemId)">Delete</button>
             </td>
         </tr>
             }
@@ -64,7 +64,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <a href="#" class="close" data-dismiss="modal">x</a>
-                <h3 id="title" class="modal-title">Adicionar despesa</h3>
+                <h3 id="title" class="modal-title">Add expense</h3>
             </div>
             <div class="modal-body" id="expenseFormModelDiv">
             </div>
@@ -77,7 +77,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <a href="#" class="close" data-dismiss="modal">x</a>
-                <h3 class="modal-title">Relatório de despesas</h3>
+                <h3 class="modal-title">Expense report</h3>
             </div>
             <div class="modal-body" id="expenseReportModalDiv">
             </div>
@@ -89,12 +89,12 @@
     var AddEditExpense = function (itemId) {
         var url = "/Expense/AddEditExpense?itemId=" + itemId;
         if (itemId > 0)
-            $('#title').html("Edita despesa");
+            $('#title').html("Edit expense");
         $("#expenseFormModelDiv").load(url, function () {
             $("#expenseFormModel").modal("show");
         });
 
-        $("#expenseFormModel").on('show.bs.modal', function () {
+        $('#expenseFormModel').on('show.bs.modal', function () {
             $('#calender-container .input-group.date').datepicker({
                 todayBtn: true,
                 calendarWeeks: true,
@@ -108,12 +108,12 @@
     var ReportExpense = function () {
         var url = "/Expense/ExpenseSummary";
         $("#expenseReportModalDiv").load(url, function () {
-            $("expenseReportModal").modal("show");
+            $("#expenseReportModal").modal("show");
         })
     }
 
     var DeleteExpense = function (itemId) {
-        var resp = confirm("Deseja deletar a despesa : " + itemId);
+        var resp = confirm("Do you want to delete the expense: " + itemId + "?");
 
         if (resp) {
             $.ajax({
@@ -132,12 +132,13 @@
 
         $.ajax({
             type: "POST",
-            url: "Expense/Create",
+            url: "/Expense/Create",
             data: myformdata,
             success: function () {
-                $("#myModal").modal("hide");
+
+        $("#myModal").modal("hide");
                 window.location.href = "/Expense/Index";
-            };
+            },
             error: function (errormessage) {
                 alert(errormessage.responseText);
             }

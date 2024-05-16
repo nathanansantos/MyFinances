@@ -5,58 +5,58 @@
 <script>
         $(document).ready(function () {
             $("#btnReportWeekly").click(function () {
-                var titlemessage = "Despesa semanal : ";
+            var titleMessage = "Weekly expense : ";
                 $.ajax({
                     type: "GET",
                     url: "/Expense/GetExpensePierPeriodWeekly",
                     contentType: "application/json",
                     dataType: "json",
-                    //PAREI AQUI
+                   
                     success: function (result) {
                         var keys = Object.keys(result);
-                        var datasemanal = new Array();
-                        var totalgasto = 0.0;
+                        var dateWeekly = new Array();
+                        var totalSpend = 0.0;
                         for (var i = 0; i < keys.length; i++) {
                             var arrL = new Array();
                             arrL.push(keys[i]);
                             arrL.push(result[keys[i]]);
-                            totalgasto += result[keys[i]];
-                            datasemanal .push(arrL);
+                            totalSpend += result[keys[i]];
+                            dateWeekly.push(arrL);
                         }
-                        createCharts(datasemanal , titulomensagem , totalgasto.toFixed(2));
+                    createCharts(dateWeekly, titleMessage, totalSpend.toFixed(2));
                     }
                 })
             })
-            $("#btnReportMensal").click(function () {
-                var titulomensagem = "Despesa semestral : ";
+            $("#btnReportMonthly").click(function () {
+            var titleMessage = "Biannual expense: ";
                 $.ajax({
                     type: "GET",
-                    url: "/Despesa/GetDepesaPorPeriodo",
+                    url: "/Expense/GetExpensePierPeriod",
                     contentType: "application/json",
                     dataType: "json",
                     success: function (result) {
                         var keys = Object.keys(result);
-                        var datamensal = new Array();
-                        var totalgasto = 0.0;
+                        var dateMonthly = new Array();
+                        var totalSpend = 0.0;
                         for (var i = 0; i < keys.length; i++) {
                             var arrL = new Array();
                             arrL.push(keys[i]);
                             arrL.push(result[keys[i]]);
-                            totalgasto += result[keys[i]];
-                            datamensal .push(arrL);
+                            totalSpend += result[keys[i]];
+                            dateMonthly .push(arrL);
                         }
-                        createCharts(datamensal , titulomensagem , totalgasto.toFixed(2));
+                    createCharts(dateMonthly, titleMessage, totalSpend.toFixed(2));
                     }
                 })
             })
         })
-        function createCharts(soma, tituloTexto, totalgasto) {
+        function createCharts(sum, titleText, totalSpend) {
             Highcharts.chart('container', {
                 chart: {
                     type: 'column'
                 },
                 title: {
-                    text: tituloTexto + ' ' + totalgasto
+                text: titleText + '' + totalSpend
                 },
                 xAxis: {
                     type: 'category',
@@ -71,18 +71,18 @@
                 yAxis: {
                     min: 0,
                     title: {
-                        text: 'Valor Despesas'
+                        text: 'Expense value'
                     }
                 },
                 legend: {
                     enabled: false
                 },
                 tooltip: {
-                    pointFormat: 'Total despesas: <b>{point.y:.2f} </b>'
+                    pointFormat: 'Total expense: <b>{point.y:.2f} </b>'
                 },
                 series: [{
                     type: 'column',
-                    data: soma,
+                    data: sum,
                 }]
             });
         }

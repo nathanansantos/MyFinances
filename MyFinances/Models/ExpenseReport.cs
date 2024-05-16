@@ -25,7 +25,7 @@ namespace MyFinances.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true )]
         [Required]
-        public DateTime ExpenseDate { get; set; }
+        public DateTime ExpenseDate { get; set; } = DateTime.Now;
 
         [Required]
         [StringLength(100)]
