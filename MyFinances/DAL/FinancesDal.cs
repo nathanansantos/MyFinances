@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MyFinances.Models;
+using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
 namespace MyFinances.DAL
 {
@@ -184,6 +185,19 @@ namespace MyFinances.DAL
 
 
         }
+
+        public decimal SumExpense(IEnumerable<ExpenseReport> expenses)
+        {
+            decimal totalExpenses = 0;
+
+            foreach (var item in expenses)
+            {
+                totalExpenses += item.Value;
+            }
+
+            return totalExpenses;
+        }
+
 
     }
 }

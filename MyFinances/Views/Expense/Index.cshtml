@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<MyFinances.Models.ExpenseReport>
+@using MyFinances.DAL
 @{
+    
     ViewData["Title"] = "MyFinances 1.0";
 }
 <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
@@ -56,6 +58,14 @@
             </td>
         </tr>
             }
+        <th>Total = </th>
+        @{
+            var financesDal = new FinancesDal();
+
+            decimal totalExpenses = financesDal.SumExpense(Model);
+        }
+        <td align="right">@totalExpenses</td>
+
     </tbody>
 </table>
 
