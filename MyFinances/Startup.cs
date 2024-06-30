@@ -39,6 +39,7 @@ namespace MyFinances
             services.AddDbContext<AppDbContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IFinancesDAL, FinancesDal>();
+            services.AddTransient<IInvestmentDAL, InvestmentDAL>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

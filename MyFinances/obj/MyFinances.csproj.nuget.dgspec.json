@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\src\\MyFinances\\MyFinances\\MyFinances.csproj": {}
+    "C:\\Projetos\\MyFinances\\MyFinances\\MyFinances.csproj": {}
   },
   "projects": {
-    "C:\\src\\MyFinances\\MyFinances\\MyFinances.csproj": {
+    "C:\\Projetos\\MyFinances\\MyFinances\\MyFinances.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\src\\MyFinances\\MyFinances\\MyFinances.csproj",
+        "projectUniqueName": "C:\\Projetos\\MyFinances\\MyFinances\\MyFinances.csproj",
         "projectName": "MyFinances",
-        "projectPath": "C:\\src\\MyFinances\\MyFinances\\MyFinances.csproj",
-        "packagesPath": "C:\\Users\\natha\\.nuget\\packages\\",
-        "outputPath": "C:\\src\\MyFinances\\MyFinances\\obj\\",
+        "projectPath": "C:\\Projetos\\MyFinances\\MyFinances\\MyFinances.csproj",
+        "packagesPath": "C:\\Users\\Nathan Santos\\.nuget\\packages\\",
+        "outputPath": "C:\\Projetos\\MyFinances\\MyFinances\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\natha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Nathan Santos\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -95,7 +95,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

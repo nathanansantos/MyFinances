@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GHZsoAbfwAcl/Lf99rGQQgFvRgfuL4kacb7/GInlsgJa5ID61HtRfYnRSVqJt9Z1JwjH1MxMzMgR3yANK+AE1g==",
+  "dgSpecHash": "ixZXg8OM+V6xPv2GQbWSTRhXLXn3xL6vFsMmUA1kNY5fKLh1ETtBnNoXmnoFSPrIoVFGiKDuYPjKpeeXxhXxXQ==",
   "success": true,
-  "projectFilePath": "C:\\src\\MyFinances\\MyFinances\\MyFinances.csproj",
+  "projectFilePath": "C:\\Projetos\\MyFinances\\MyFinances\\MyFinances.csproj",
   "expectedPackageFiles": [
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnet.webapi.client\\5.2.6\\microsoft.aspnet.webapi.client.5.2.6.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore\\2.1.1\\microsoft.aspnetcore.2.1.1.nupkg.sha512",
@@ -170,7 +170,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.dotnethostresolver\\2.1.0\\microsoft.netcore.dotnethostresolver.2.1.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\2.1.0\\microsoft.netcore.platforms.2.1.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.targets\\2.1.0\\microsoft.netcore.targets.2.1.0.nupkg.sha512",
-    "C:\\Users\\natha\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
+    "C:\\Users\\Nathan Santos\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.visualstudio.web.codegeneration\\2.1.10\\microsoft.visualstudio.web.codegeneration.2.1.10.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.visualstudio.web.codegeneration.contracts\\2.1.10\\microsoft.visualstudio.web.codegeneration.contracts.2.1.10.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.visualstudio.web.codegeneration.core\\2.1.10\\microsoft.visualstudio.web.codegeneration.core.2.1.10.nupkg.sha512",
