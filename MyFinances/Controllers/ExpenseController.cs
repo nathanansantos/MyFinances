@@ -9,10 +9,7 @@ using MyFinances.DAL;
 
 namespace MyFinances.Controllers
 {
-    /*
-    [Route("api/[controller]")]
-    [ApiController]
-    */
+
     public class ExpenseController : Controller
     {
         private readonly IFinancesDAL _dal;
