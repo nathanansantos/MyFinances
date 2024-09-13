@@ -19,14 +19,40 @@ namespace MyFinances.Controllers
         }
 
         //GET: Expense
-        public IActionResult Index(string criterion)
+        public IActionResult Index(string criterion, int? month, int? year)
         {
-            var listExpenses = _dal.GetAllExpenses().ToList();
+            var currentMonth = month ?? DateTime.Now.Month;
+            var currentYear = year ?? DateTime.Now.Year;
+
+            var listExpenses = _dal.GetAllExpenses().Where(x => x.ExpenseDate.Month == currentMonth && 
+            x.ExpenseDate.Year == currentYear).ToList();
+
             if(!String.IsNullOrEmpty(criterion))
             {
                 listExpenses = _dal.GetFilterExpenses(criterion).ToList();
             }
+            ViewBag.Titulo = "Despesas";
+            ViewBag.CurrentMonth = currentMonth;
+            ViewBag.CurrentYear = currentYear;
+
             return View(listExpenses);
+        }
+
+        public IActionResult EfIndex(string criterion, int? month, int? year)
+        {
+            var currentMonth = month ?? DateTime.Now.Month;
+            var currentYear = year ?? DateTime.Now.Year;
+
+            var listExpenses = _dal.GetAllExpenses().Where(x => x.FixedExpense == true).ToList();
+            if (!String.IsNullOrEmpty(criterion))
+            {
+                listExpenses = _dal.GetFilterExpenses(criterion).ToList();
+            }
+            ViewBag.Titulo = "Despesas fixas";
+            ViewBag.CurrentMonth = currentMonth;
+            ViewBag.CurrentYear = currentYear;
+
+            return View("Index", listExpenses);
         }
 
         public IActionResult AddEditExpense(int itemId)

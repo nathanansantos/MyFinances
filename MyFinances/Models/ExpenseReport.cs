@@ -30,5 +30,11 @@ namespace MyFinances.Models
         [Required]
         [StringLength(100)]
         public string Category { get; set; }
+
+        public bool? FixedExpense { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? ExpirationDate { get; set; }
     }
 }

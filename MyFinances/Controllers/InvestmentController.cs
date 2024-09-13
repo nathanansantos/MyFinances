@@ -16,15 +16,35 @@ namespace MyFinances.Controllers
                 _dal = dal;
         }
         
-        public IActionResult Index(string criterion)
+        //public IActionResult Index(string criterion)
+        //{
+        //    var listInvestment = _dal.GetAllInvestments().ToList();
+        //    if (!String.IsNullOrEmpty(criterion))
+        //    {
+        //        listInvestment = _dal.GetFilterInvestments(criterion).ToList();
+        //    }
+        //    return View(listInvestment);
+        //}
+
+        public IActionResult Index(string criterion, int? month, int? year)
         {
-            var listInvestment = _dal.GetAllInvestments().ToList();
+            var currentMonth = month ?? DateTime.Now.Month;
+            var currentYear = year ?? DateTime.Now.Year;
+
+            var listInvestments = _dal.GetAllInvestments().Where(x => x.InvestmentDate.Month == currentMonth &&
+            x.InvestmentDate.Year == currentYear).ToList();
+
             if (!String.IsNullOrEmpty(criterion))
             {
-                listInvestment = _dal.GetFilterInvestments(criterion).ToList();
+                listInvestments = _dal.GetFilterInvestments(criterion).ToList();
             }
-            return View(listInvestment);
+            ViewBag.Titulo = "Despesas";
+            ViewBag.CurrentMonth = currentMonth;
+            ViewBag.CurrentYear = currentYear;
+
+            return View(listInvestments);
         }
+
 
 
         public IActionResult AddEditInvestment(int itemId)

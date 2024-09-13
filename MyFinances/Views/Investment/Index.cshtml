@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<MyFinances.Models.Investment>
 @using MyFinances.DAL
+@using System.Globalization
+
 @{
 
     ViewData["Title"] = "MyFinances 1.0";
@@ -14,11 +16,11 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" rel="stylesheet">
 
-<h2>Investments</h2>
+<h2>Investimentos</h2>
 <br />
 <div>
     <div style="float:left">
-        <button class="btn btn-primary" onclick="AddEditInvestment(0)">Add Investment</button>
+        <button class="btn btn-primary" onclick="AddEditInvestment(0)">Adicionar investimento</button>
     </div>
     <div style="float:right; width:40%">
         <form asp-controller="Investment" asp-action="Index" class="form-group">
@@ -34,12 +36,12 @@
 <table class="table">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.ItemId)</th>
-            <th>@Html.DisplayNameFor(model => model.ItemName)</th>
-            <th>@Html.DisplayNameFor(model => model.Value)</th>
-            <th>@Html.DisplayNameFor(model => model.InvestmentDate)</th>
-            <th>@Html.DisplayNameFor(model => model.Category)</th>
-            <th>Action item</th>
+            <th>Id</th>
+            <th>Investimento</th>
+            <th>Valor</th>
+            <th>Data do investimento</th>
+            <th>Categoria</th>
+
         </tr>
     </thead>
     <tbody>
@@ -68,12 +70,27 @@
     </tbody>
 </table>
 
+<div class="month-navigation" style="text-align:center">
+    <!-- Botão para o mês anterior -->
+    <a class="btn btn-default" href="@Url.Action("Index", new { month = ViewBag.CurrentMonth - 1, year = ViewBag.CurrentYear })">
+        <i class="glyphicon glyphicon-arrow-left"></i> Mês Anterior
+    </a>
+
+    <!-- Exibe o mês e ano atual -->
+    <span>@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(ViewBag.CurrentMonth) @ViewBag.CurrentYear</span>
+
+    <!-- Botão para o próximo mês -->
+    <a class="btn btn-default" href="@Url.Action("Index", new { month = ViewBag.CurrentMonth + 1, year = ViewBag.CurrentYear })">
+        Mês Seguinte <i class="glyphicon glyphicon-arrow-right"></i>
+    </a>
+</div>
+
 <div class="modal fade" id="InvestmentFormModel" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <a href="#" class="close" data-dismiss="modal">x</a>
-                <h3 id="title" class="modal-title">Add Investment</h3>
+                <h3 id="title" class="modal-title">Adicionar investimento</h3>
             </div>
             <div class="modal-body" id="InvestmentFormModelDiv">
             </div>

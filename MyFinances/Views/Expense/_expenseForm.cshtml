@@ -1,4 +1,5 @@
 ﻿@model MyFinances.Models.ExpenseReport
+@using MyFinances.DAL
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" rel="stylesheet">
 <div>
@@ -7,32 +8,53 @@
             <form id="expenseForm">
                 <input type="hidden" asp-for="ItemId" />
                 <div class="form-group">
-                    <label asp-for="ItemName" class="control-label"></label>
+                    <label asp-for="ItemName" class="control-label">Despesa</label>
                     <input asp-for="ItemName" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Category" class="control-label"></label>
+                    <label asp-for="Category" class="control-label">Categoria</label>
                     <select asp-for="Category" class="form-control">
-                        <option value="">-- Select Category --</option>
-                        <option value="Food">Food</option>
-                        <option value="Shopping">Shopping</option>
-                        <option value="Transport">Transport</option>
-                        <option value="Health">Health</option>
-                        <option value="Home">Home</option>
-                        <option value="Leisure">Leisure</option>
+                        <option value="">-- Selecione a categoria --</option>
+                        <option value="Food">Comida</option>
+                        <option value="Shopping">Compras</option>
+                        <option value="Transport">Transporte</option>
+                        <option value="Health">Saúde</option>
+                        <option value="Home">Casa</option>
+                        <option value="Leisure">Lazer</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Value" class="control-label"></label>
+                    <label asp-for="Value" class="control-label">Valor</label>
                     <input asp-for="Value" class="form-control" />
                 </div>
-                <div class="form-group" id="calender-container">
-                    <label asp-for="ExpenseDate" class="control-label"></label>
+                <div>
+                    <label asp-for="FixedExpense" class="control-label">Despesa fixa</label>
+                    <select asp-for="FixedExpense" class="form-control fixedExpense">
+                        <option value="">-- Seleciona uma opção --</option>
+                        <option value="true">Sim</option>
+                        <option value="false">Não</option>
+                    </select>
+                </div>
+                <br />
+                <div class="form-group expirationDate" id="calender-container" style="display:none;">
+                    <label asp-for="ExpirationDate" class="control-label">Data de vencimento</label>
                     <div class="input-group date">
-                        <input asp-for="ExpenseDate" type="text" class="form-control"><span class="input-group-addon">
-                            <i class="glyphicon glyphicon-calendar"></i></span>
+                        <input asp-for="ExpirationDate" type="text" class="form-control"><span class="input-group-addon">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </span>
+
                     </div>
                 </div>
+                <div class="form-group expenseDate" id="calender-container" style="display:none;">
+                    <label asp-for="ExpenseDate" class="control-label">Data de despesa</label>
+                    <div class="input-group date">
+                        <input asp-for="ExpenseDate" type="text" class="form-control"><span class="input-group-addon">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <br />
                 <div class="form-group">
                     <button type="button" id="btnSubmit" class="btn btn-block btn-info">Salvar</button>
                 </div>
@@ -40,3 +62,27 @@
         </div>
     </div>
 </div>
+<script>
+    // Seleciona o elemento de select usando a classe 'fixedExpense'
+    var fixedExpense = $('.fixedExpense');
+
+    function toggleFields() {
+        var isFixedExpense = fixedExpense.val();
+
+        if (isFixedExpense === "true") {
+            // Exibe o campo expirationDate e oculta o expenseDate
+            $('.expirationDate').css({ "display": "block" });
+            $('.expenseDate').css({ "display": "none" });
+        } else {
+            // Exibe o campo expenseDate e oculta o expirationDate
+            $('.expirationDate').css({ "display": "none" });
+            $('.expenseDate').css({ "display": "block" });
+        }
+    }
+
+    // Executa a função ao carregar a página para definir o estado inicial
+    toggleFields();
+
+    // Adiciona o evento de alteração para o select
+    fixedExpense.on("change", toggleFields);
+</script>

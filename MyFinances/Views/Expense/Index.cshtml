@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<MyFinances.Models.ExpenseReport>
 @using MyFinances.DAL
+@using System.Globalization
 @{
     
     ViewData["Title"] = "MyFinances 1.0";
+     
 }
 <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
@@ -14,12 +16,12 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" rel="stylesheet">
 
-<h2>Expenses</h2>
+<h2>@ViewBag.Titulo</h2>
 <br />
 <div>
     <div style="float:left">
-        <button class="btn btn-primary" onclick="AddEditExpense(0)">Add expense</button>
-        <button class="btn btn-success" onclick="ReportExpense()">Expense report</button>
+        <button type="button" class="btn btn-primary" onclick="AddEditExpense(0)">Adicionar despesa</button>
+        <button class="btn btn-success" onclick="ReportExpense()">Relatório de despesas</button>
     </div>
     <div style="float:right; width:40%">
         <form asp-controller="Expense" asp-action="Index" class="form-group">
@@ -35,12 +37,18 @@
 <table class="table">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.ItemId)</th>
-            <th>@Html.DisplayNameFor(model => model.ItemName)</th>
-            <th>@Html.DisplayNameFor(model => model.Value)</th>
-            <th>@Html.DisplayNameFor(model => model.ExpenseDate)</th>
-            <th>@Html.DisplayNameFor(model => model.Category)</th>
-            <th>Action item</th>
+            <th>Id</th>
+            <th>Despesa</th>
+            <th>Valor</th>
+            @if (ViewBag.Titulo == "Despesas fixas")
+            {
+                <th>Data de vencimento</th>
+            }
+            else
+            {
+                <th>Data da despesa</th>
+            }
+            <th>Categoria</th>
         </tr>
     </thead>
     <tbody>
@@ -50,7 +58,16 @@
             <td>@Html.DisplayFor(modelItem => item.ItemId)</td>
             <td>@Html.DisplayFor(modelItem => item.ItemName)</td>
             <td>@Html.DisplayFor(modelItem => item.Value)</td>
-            <td>@Html.DisplayFor(modelItem => item.ExpenseDate)</td>
+
+                @if (ViewBag.Titulo == "Despesas fixas")
+                {
+                    <td>@Html.DisplayFor(modelItem => item.ExpirationDate)</td>
+                }
+                else
+                {
+                    <td>@Html.DisplayFor(modelItem => item.ExpenseDate)</td>
+                }
+
             <td>@Html.DisplayFor(modelItem => item.Category)</td>
             <td>
                 <button class="btn btn-default" onclick="AddEditExpense(@item.ItemId)">Edit</button>
@@ -68,13 +85,29 @@
 
     </tbody>
 </table>
+<br />
+
+<div class="month-navigation" style="text-align:center">
+    <!-- Botão para o mês anterior -->
+    <a class="btn btn-default" href="@Url.Action("Index", new { month = ViewBag.CurrentMonth - 1, year = ViewBag.CurrentYear })">
+        <i class="glyphicon glyphicon-arrow-left"></i> Mês Anterior
+    </a>
+
+    <!-- Exibe o mês e ano atual -->
+    <span>@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(ViewBag.CurrentMonth) @ViewBag.CurrentYear</span>
+
+    <!-- Botão para o próximo mês -->
+    <a class="btn btn-default" href="@Url.Action("Index", new { month = ViewBag.CurrentMonth + 1, year = ViewBag.CurrentYear })">
+        Mês Seguinte <i class="glyphicon glyphicon-arrow-right"></i>
+    </a>
+</div>
 
 <div class="modal fade" id="expenseFormModel" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <a href="#" class="close" data-dismiss="modal">x</a>
-                <h3 id="title" class="modal-title">Add expense</h3>
+                <h3 id="title" class="modal-title">Adicionar despesa</h3>
             </div>
             <div class="modal-body" id="expenseFormModelDiv">
             </div>
@@ -87,7 +120,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <a href="#" class="close" data-dismiss="modal">x</a>
-                <h3 class="modal-title">Expense report</h3>
+                <h3 class="modal-title">Relatório de despesas</h3>
             </div>
             <div class="modal-body" id="expenseReportModalDiv">
             </div>
