@@ -1,14 +1,13 @@
-﻿@{
-    ViewData["Title"] = "Gráfico de Despesas";
-}
-
-<h2>@ViewData["Title"]</h2>
-
-<div id="container" style="width:50%; height:300px;"></div>
+﻿
+<h2 style="text-align:center">Despesas pessoais</h2>
+<hr /> <br />
+<div style="display: flex; justify-content: space-between;">
+    <div id="container" style="width: 48%; height: 400px;"></div>
+    <div id="container2" style="width: 48%; height: 400px;"></div>
+</div>
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 
 <script>
     $(document).ready(function () {
@@ -29,13 +28,34 @@
                     totalSpend += result[keys[i]];
                     dateMonthly.push(arrL);
                 }
-                createCharts(dateMonthly, titleMessage, totalSpend.toFixed(2));
+                createColumnChart(dateMonthly, titleMessage, totalSpend.toFixed(2), 'container');
             }
-        })
-    })
-            
-    function createCharts(sum, titleText, totalSpend) {
-        Highcharts.chart('container', {
+        });
+
+        var titleMessage2 = "Gastos por categoria: ";
+        $.ajax({
+            type: "GET",
+            url: "/Expense/GetExpensePierCategory",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                var keys = Object.keys(result);
+                var dateMonthly = new Array();
+                var totalSpend = 0.0;
+                for (var i = 0; i < keys.length; i++) {
+                    var arrL = new Array();
+                    arrL.push(keys[i]);
+                    arrL.push(result[keys[i]]);
+                    totalSpend += result[keys[i]];
+                    dateMonthly.push(arrL);
+                }
+                createPieChart(dateMonthly, titleMessage2, totalSpend.toFixed(2), 'container2');
+            }
+        });
+    });
+
+    function createColumnChart(sum, titleText, totalSpend, containerId) {
+        Highcharts.chart(containerId, {
             chart: {
                 type: 'column'
             },
@@ -45,9 +65,8 @@
             xAxis: {
                 type: 'category',
                 labels: {
-                    rotation: -45,
                     style: {
-                        fontSize: '13px',
+                        fontSize: '10px',
                         fontFamily: 'Verdana, sans-serif'
                     }
                 }
@@ -70,5 +89,51 @@
             }]
         });
     }
-
+    function createPieChart(sum, titleText, totalSpend, containerId) {
+        Highcharts.chart(containerId, {
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: titleText + '' + totalSpend
+            },
+            tooltip: {
+                valueSuffix: '%'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: [{
+                        enabled: true,
+                        distance: 20
+                    }, {
+                        enabled: true,
+                        distance: -40,
+                        format: '{point.percentage:.1f}%',
+                        style: {
+                            fontSize: '1.2em',
+                            textOutline: 'none',
+                            opacity: 0.7
+                        },
+                        filter: {
+                            operator: '>',
+                            property: 'percentage',
+                            value: 10
+                        }
+                    }]
+                }
+            },
+            series: [{
+                name: 'Expenses',
+                colorByPoint: true,
+                data: sum.map(item => ({ name: item[0], y: item[1] }))
+            }]
+        });
+    }
 </script>

@@ -114,5 +114,11 @@ namespace MyFinances.Controllers
             return new JsonResult(expensePeriodMonthly);
 
         }
+
+        public JsonResult GetExpensePierCategory()
+        {
+            Dictionary<string, decimal> expenseCategory = _dal.CalculeExpenseCategory();
+            return new JsonResult(expenseCategory);
+        }
     }
 }

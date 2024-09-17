@@ -1,6 +1,7 @@
 ﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyFinances.Models;
 using Remotion.Linq.Parsing.Structure.IntermediateModel;
@@ -230,6 +231,36 @@ namespace MyFinances.DAL
             SumExpensePeriod.Add("Leisure", expenseLeisure);
 
             return SumExpensePeriod;
+
+        }
+
+        public Dictionary<string, decimal> CalculeExpenseCategory()
+        {
+            var currentMonth = DateTime.Now.Month;
+            var currentYear =  DateTime.Now.Year;
+
+            Dictionary<string, decimal> SumExpenseCategory = new Dictionary<string, decimal>();
+
+            decimal expenseReport= db.ExpenseReport.Where
+            (x => x.ExpenseDate.Month == currentMonth && x.ExpenseDate.Year == currentYear)
+            .Select(x => x.Value)
+            .Sum();
+
+            decimal investmentReport = db.Investment.Where
+            (x => x.InvestmentDate.Month == currentMonth && x.InvestmentDate.Year == currentYear)
+            .Select(x => x.Value)
+            .Sum();
+
+            decimal fixedExpenseReport = db.ExpenseReport.Where
+            (x => x.FixedExpense == true && x.ExpenseDate.Month == currentMonth && x.ExpenseDate.Year == currentYear)
+            .Select(x => x.Value)
+            .Sum();
+
+            SumExpenseCategory.Add("Expenses", expenseReport);
+            SumExpenseCategory.Add("Investments", investmentReport);
+            SumExpenseCategory.Add("Fixed Expense", fixedExpenseReport);
+
+            return SumExpenseCategory;
 
         }
 

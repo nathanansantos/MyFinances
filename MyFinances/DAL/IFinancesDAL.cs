@@ -18,5 +18,6 @@ namespace MyFinances.DAL
         Dictionary<string, decimal> CalculeExpensePeriod(int period);
         Dictionary<string, decimal> CalculeExpensePeriodWeekly(int period);
         Dictionary<string, decimal> CalculeExpensePeriodMonthly(int? month, int? year);
+        Dictionary<string, decimal> CalculeExpenseCategory();
     }
 }
