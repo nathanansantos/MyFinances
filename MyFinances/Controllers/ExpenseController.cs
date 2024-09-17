@@ -105,5 +105,14 @@ namespace MyFinances.Controllers
             Dictionary<string, decimal> expensePeriodWeekly = _dal.CalculeExpensePeriodWeekly(7);
             return new JsonResult(expensePeriodWeekly);
         }
+
+        public JsonResult GetExpensePierPeriodMonthly()
+        {
+            var currentMonth = DateTime.Now.Month;
+            var currentYear = DateTime.Now.Year;
+            Dictionary<string, decimal> expensePeriodMonthly = _dal.CalculeExpensePeriodMonthly(currentMonth, currentYear);
+            return new JsonResult(expensePeriodMonthly);
+
+        }
     }
 }

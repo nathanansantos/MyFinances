@@ -1,6 +1,74 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
-    <h3>Sistema de finanças pessoais</h3>
-    <br />
-    <h4>Por Nathan Santos</h4>
+    ViewData["Title"] = "Gráfico de Despesas";
 }
+
+<h2>@ViewData["Title"]</h2>
+
+<div id="container" style="width:50%; height:300px;"></div>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        var titleMessage = "Gastos mensais: ";
+        $.ajax({
+            type: "GET",
+            url: "/Expense/GetExpensePierPeriodMonthly",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                var keys = Object.keys(result);
+                var dateMonthly = new Array();
+                var totalSpend = 0.0;
+                for (var i = 0; i < keys.length; i++) {
+                    var arrL = new Array();
+                    arrL.push(keys[i]);
+                    arrL.push(result[keys[i]]);
+                    totalSpend += result[keys[i]];
+                    dateMonthly.push(arrL);
+                }
+                createCharts(dateMonthly, titleMessage, totalSpend.toFixed(2));
+            }
+        })
+    })
+            
+    function createCharts(sum, titleText, totalSpend) {
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: titleText + '' + totalSpend
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Expense value'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: 'Total expense: <b>{point.y:.2f} </b>'
+            },
+            series: [{
+                type: 'column',
+                data: sum,
+            }]
+        });
+    }
+
+</script>

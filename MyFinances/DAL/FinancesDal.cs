@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -183,6 +183,53 @@ namespace MyFinances.DAL
 
             return SumExpensePeriodWeekly;
 
+
+        }
+
+        public Dictionary<string, decimal> CalculeExpensePeriodMonthly(int? month, int? year)
+        {
+            var currentMonth = month ?? DateTime.Now.Month;
+            var currentYear = year ?? DateTime.Now.Year;
+
+            Dictionary<string, decimal> SumExpensePeriod = new Dictionary<string, decimal>();
+            decimal expenseFood = db.ExpenseReport.Where
+            (cat => cat.Category == "Food" && (cat.ExpenseDate.Month == currentMonth && cat.ExpenseDate.Year == currentYear))
+            .Select(cat => cat.Value)
+            .Sum();
+
+            decimal expenseShopping = db.ExpenseReport.Where
+            (cat => cat.Category == "Shopping" && (cat.ExpenseDate.Month == currentMonth && cat.ExpenseDate.Year == currentYear))
+            .Select(cat => cat.Value)
+            .Sum();
+
+            decimal expenseTransport = db.ExpenseReport.Where
+            (cat => cat.Category == "Transport" && (cat.ExpenseDate.Month == currentMonth && cat.ExpenseDate.Year == currentYear))
+            .Select(cat => cat.Value)
+            .Sum();
+
+            decimal expenseHealth = db.ExpenseReport.Where
+            (cat => cat.Category == "Health" && (cat.ExpenseDate.Month == currentMonth && cat.ExpenseDate.Year == currentYear))
+            .Select(cat => cat.Value)
+            .Sum();
+
+            decimal expenseHome = db.ExpenseReport.Where
+            (cat => cat.Category == "Home" && (cat.ExpenseDate.Month == currentMonth && cat.ExpenseDate.Year == currentYear))
+            .Select(cat => cat.Value)
+            .Sum();
+
+            decimal expenseLeisure = db.ExpenseReport.Where
+            (cat => cat.Category == "Leisure" && (cat.ExpenseDate.Month == currentMonth && cat.ExpenseDate.Year == currentYear))
+            .Select(cat => cat.Value)
+            .Sum();
+
+            SumExpensePeriod.Add("Food", expenseFood);
+            SumExpensePeriod.Add("Shopping", expenseShopping);
+            SumExpensePeriod.Add("Transport", expenseTransport);
+            SumExpensePeriod.Add("Health", expenseHealth);
+            SumExpensePeriod.Add("Home", expenseHome);
+            SumExpensePeriod.Add("Leisure", expenseLeisure);
+
+            return SumExpensePeriod;
 
         }
 

@@ -1,10 +1,11 @@
-﻿<script src="https://code.highcharts.com/highcharts.js"></script>
+﻿
+<script src="https://code.highcharts.com/highcharts.js"></script>
 <button id="btnReportMonthly" class="btn btn-info">Relatório Mensal</button>
 <button id="btnReportWeekly" class="btn btn-warning">Relatório Semanal</button>
 <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <script>
         $(document).ready(function () {
-            $("#btnReportWeekly").click(function () {
+            $("#btnReportWeekly").click(function () {       
             var titleMessage = "Weekly expense : ";
                 $.ajax({
                     type: "GET",

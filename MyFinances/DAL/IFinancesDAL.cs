@@ -17,5 +17,6 @@ namespace MyFinances.DAL
         void DeleteExpense(int id);
         Dictionary<string, decimal> CalculeExpensePeriod(int period);
         Dictionary<string, decimal> CalculeExpensePeriodWeekly(int period);
+        Dictionary<string, decimal> CalculeExpensePeriodMonthly(int? month, int? year);
     }
 }
