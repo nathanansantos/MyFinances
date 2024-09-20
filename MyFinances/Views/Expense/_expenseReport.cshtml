@@ -6,7 +6,7 @@
 <script>
         $(document).ready(function () {
             $("#btnReportWeekly").click(function () {       
-            var titleMessage = "Weekly expense : ";
+            var titleMessage = "Gastos desta semana: ";
                 $.ajax({
                     type: "GET",
                     url: "/Expense/GetExpensePierPeriodWeekly",
@@ -29,10 +29,10 @@
                 })
             })
             $("#btnReportMonthly").click(function () {
-            var titleMessage = "Biannual expense: ";
+            var titleMessage = "Gastos deste mês: ";
                 $.ajax({
                     type: "GET",
-                    url: "/Expense/GetExpensePierPeriod",
+                    url: "/Expense/GetExpensePierPeriodMonthly",
                     contentType: "application/json",
                     dataType: "json",
                     success: function (result) {
@@ -62,7 +62,6 @@
                 xAxis: {
                     type: 'category',
                     labels: {
-                        rotation: -45,
                         style: {
                             fontSize: '13px',
                             fontFamily: 'Verdana, sans-serif'
@@ -72,7 +71,7 @@
                 yAxis: {
                     min: 0,
                     title: {
-                        text: 'Expense value'
+                        text: 'Valor gasto'
                     }
                 },
                 legend: {

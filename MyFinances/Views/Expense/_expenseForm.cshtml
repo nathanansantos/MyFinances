@@ -5,7 +5,7 @@
 <div>
     <div class="row">
         <div class="col-md-8">
-            <form id="expenseForm">
+            <form method="post" id="expenseForm">
                 <input type="hidden" asp-for="ItemId" />
                 <div class="form-group">
                     <label asp-for="ItemName" class="control-label">Despesa</label>
@@ -56,7 +56,7 @@
                 
                 <br />
                 <div class="form-group">
-                    <button type="button" id="btnSubmit" class="btn btn-block btn-info">Salvar</button>
+                    <button type="submit" id="btnSubmit" class="btn btn-block btn-info">Salvar</button>
                 </div>
             </form>
         </div>

@@ -6,23 +6,25 @@
     ViewData["Title"] = "MyFinances 1.0";
      
 }
-<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
 <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" rel="stylesheet">
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" rel="stylesheet">
 
 <h2>@ViewBag.Titulo</h2>
 <br />
 <div>
     <div style="float:left">
         <button type="button" class="btn btn-primary" onclick="AddEditExpense(0)">Adicionar despesa</button>
-        <button class="btn btn-success" onclick="ReportExpense()">Relatório de despesas</button>
-    </div>
+@*         <button class="btn btn-success" onclick="ReportExpense()">Relatório de despesas</button>
+ *@    </div>
     <div style="float:right; width:40%">
         <form asp-controller="Expense" asp-action="Index" class="form-group">
             <div class="col-sm-6">
@@ -70,8 +72,8 @@
 
             <td>@Html.DisplayFor(modelItem => item.Category)</td>
             <td>
-                <button class="btn btn-default" onclick="AddEditExpense(@item.ItemId)">Edit</button>
-                <button class="btn btn-danger" onclick="DeleteExpense(@item.ItemId)">Delete</button>
+                <button class="btn btn-default" onclick="AddEditExpense(@item.ItemId)">Editar</button>
+                <button class="btn btn-danger" onclick="DeleteExpense(@item.ItemId)">Deletar</button>
             </td>
         </tr>
             }
@@ -137,14 +139,14 @@
             $("#expenseFormModel").modal("show");
         });
 
-        $('#expenseFormModel').on('show.bs.modal', function () {
+        $('#expenseFormModel').on('shown.bs.modal', function () {
             $('#calender-container .input-group.date').datepicker({
                 todayBtn: true,
                 calendarWeeks: true,
                 todarHighlight: true,
                 format: 'dd/mm/yyyy',
                 autoclose: true,
-                container: '#expenseFormModel modal-body'
+                container: '#expenseFormModel .modal-body'
             });
         });
     }
