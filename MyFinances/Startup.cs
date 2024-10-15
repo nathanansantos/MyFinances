@@ -38,9 +38,11 @@ namespace MyFinances
 
             services.AddDbContext<AppDbContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddHttpClient<BitcoinService>();
+            services.AddTransient<BitcoinService>();
             services.AddTransient<IFinancesDAL, FinancesDal>();
             services.AddTransient<IInvestmentDAL, InvestmentDAL>();
-
+            services.AddTransient<TestService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

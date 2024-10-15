@@ -25,7 +25,7 @@ namespace MyFinances.Controllers
             var listExpenses = _dal.GetAllExpenses().Where(x => x.ExpenseDate.Month == currentMonth && 
             x.ExpenseDate.Year == currentYear).ToList();
 
-            if(!String.IsNullOrEmpty(criterion))
+            if (!String.IsNullOrEmpty(criterion))
             {
                 listExpenses = _dal.GetFilterExpenses(criterion).ToList();
             }
@@ -66,9 +66,8 @@ namespace MyFinances.Controllers
         [HttpPost]
         public IActionResult Create(ExpenseReport newExpense)
         {
-            if(ModelState.IsValid)
-            {
-                if(newExpense.ItemId > 0)
+
+                if (newExpense.ItemId > 0)
                 {
                     _dal.UpdateExpense(newExpense);
                 }
@@ -76,15 +75,16 @@ namespace MyFinances.Controllers
                 {
                     _dal.AddExpense(newExpense);
                 }
-            }
-            return RedirectToAction("Index");
+
+            return RedirectToAction("EfIndex");
         }
 
         [HttpPost]
         public IActionResult Delete(int id)
         {
             _dal.DeleteExpense(id);
-            return RedirectToAction("Index");
+
+            return RedirectToAction("EfIndex");
         }
 
         public IActionResult ExpenseSummary()

@@ -1,6 +1,14 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Despesas pessoais";
+
+}
 <h2 style="text-align:center">Despesas pessoais</h2>
 <hr /> <br />
+<p style="text-align:center">
+    <img src="~/images/btc.gif" alt="BTC" style="max-width: 15px; height: auto; vertical-align: middle;" />
+    @String.Format("Valor do bitcoin: {0:C}", ViewBag.BitcoinPrice)
+</p>
+<br />
 <div style="display: flex; justify-content: space-between;">
     <div id="container" style="width: 48%; height: 400px;"></div>
     <div id="container2" style="width: 48%; height: 400px;"></div>

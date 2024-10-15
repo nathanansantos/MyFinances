@@ -16,15 +16,6 @@ namespace MyFinances.Controllers
                 _dal = dal;
         }
         
-        //public IActionResult Index(string criterion)
-        //{
-        //    var listInvestment = _dal.GetAllInvestments().ToList();
-        //    if (!String.IsNullOrEmpty(criterion))
-        //    {
-        //        listInvestment = _dal.GetFilterInvestments(criterion).ToList();
-        //    }
-        //    return View(listInvestment);
-        //}
 
         public IActionResult Index(string criterion, int? month, int? year)
         {

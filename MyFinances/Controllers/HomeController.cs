@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyFinances.DAL;
 using MyFinances.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,8 +12,16 @@ namespace MyFinances.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly BitcoinService _bitcoinService;
+
+        public HomeController(BitcoinService bitcoinService)
         {
+            _bitcoinService = bitcoinService;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var bitcoinPrice = await _bitcoinService.GetBitcoinPriceAsync();
+            ViewBag.BitcoinPrice = bitcoinPrice.ToString("C", new CultureInfo("en-US"));   
             return View();
         }
 
@@ -33,6 +43,7 @@ namespace MyFinances.Controllers
         {
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

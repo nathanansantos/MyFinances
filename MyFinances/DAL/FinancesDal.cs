@@ -194,7 +194,8 @@ namespace MyFinances.DAL
 
             Dictionary<string, decimal> SumExpensePeriod = new Dictionary<string, decimal>();
             decimal expenseFood = db.ExpenseReport.Where
-            (cat => cat.Category == "Food" && (cat.ExpenseDate.Month == currentMonth && cat.ExpenseDate.Year == currentYear))
+            (cat => cat.Category == "Food" &&
+            (cat.ExpenseDate.Month == currentMonth && cat.ExpenseDate.Year == currentYear))
             .Select(cat => cat.Value)
             .Sum();
 

@@ -6,9 +6,9 @@
     ViewData["Title"] = "MyFinances 1.0";
      
 }
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-
+@* <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ *@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
 <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -91,16 +91,15 @@
 
 <div class="month-navigation" style="text-align:center">
     <!-- Botão para o mês anterior -->
-    <a class="btn btn-default" href="@Url.Action("Index", new { month = ViewBag.CurrentMonth - 1, year = ViewBag.CurrentYear })">
-        <i class="glyphicon glyphicon-arrow-left"></i> Mês Anterior
-    </a>
-
+        <a class="btn btn-default" href="@Url.Action("Index", new { month = ViewBag.CurrentMonth - 1, year = ViewBag.CurrentYear })">
+            Mês Anterior <i class="glyphicon glyphicon-arrow-left"></i>
+        </a>
     <!-- Exibe o mês e ano atual -->
     <span>@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(ViewBag.CurrentMonth) @ViewBag.CurrentYear</span>
 
     <!-- Botão para o próximo mês -->
     <a class="btn btn-default" href="@Url.Action("Index", new { month = ViewBag.CurrentMonth + 1, year = ViewBag.CurrentYear })">
-        Mês Seguinte <i class="glyphicon glyphicon-arrow-right"></i>
+            Mês Seguinte <i class="glyphicon glyphicon-arrow-right"></i>
     </a>
 </div>
 
@@ -131,6 +130,8 @@
 </div>
 
 <script>
+    var isFixedExpenses = "@ViewBag.Titulo" === "Despesas fixas";
+
     var AddEditExpense = function (itemId) {
         var url = "/Expense/AddEditExpense?itemId=" + itemId;
         if (itemId > 0)
@@ -160,18 +161,27 @@
     var DeleteExpense = function (itemId) {
         var resp = confirm("Do you want to delete the expense: " + itemId + "?");
 
+        
         if (resp) {
             $.ajax({
                 type: "POST",
                 url: "/Expense/Delete/" + itemId,
                 success: function () {
-                    window.location.href = "/Expense/Index";
+                    // Se for "Despesas fixas", redireciona para EfIndex
+                    if (isFixedExpenses) {
+                        window.location.href = "/Expense/EfIndex";
+                    } else {
+                        // Caso contrário, redireciona para a listagem padrão
+                        window.location.href = "/Expense/Index";
+                    }
                 }
             })
         }
     }
 </script>
 <script>
+    var isFixedExpenses = "@ViewBag.Titulo" === "Despesas fixas";
+
     $('body').on('click', "#btnSubmit", function () {
         var myformdata = $("#expenseForm").serialize();
 
@@ -182,7 +192,11 @@
             success: function () {
 
         $("#myModal").modal("hide");
-                window.location.href = "/Expense/Index";
+                if (isFixedExpenses) {
+                    window.location.href = "/Expense/EfIndex";
+                } else {
+                    window.location.href = "/Expense/Index";
+                }
             },
             error: function (errormessage) {
                 alert(errormessage.responseText);
